@@ -32,7 +32,9 @@
             ClickPictureProfile = new PictureBox();
             OtzClick = new Label();
             ChatClick = new Label();
+            dataGridView1 = new DataGridView();
             ((System.ComponentModel.ISupportInitialize)ClickPictureProfile).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
             // ClickPictureProfile
@@ -68,17 +70,27 @@
             ChatClick.Text = "Чат";
             ChatClick.Click += ChatClick_Click;
             // 
+            // dataGridView1
+            // 
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Location = new Point(39, 158);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.Size = new Size(369, 165);
+            dataGridView1.TabIndex = 3;
+            // 
             // MainWindow
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(451, 209);
+            ClientSize = new Size(451, 335);
+            Controls.Add(dataGridView1);
             Controls.Add(ChatClick);
             Controls.Add(OtzClick);
             Controls.Add(ClickPictureProfile);
             Name = "MainWindow";
             Text = "Главное окно";
             ((System.ComponentModel.ISupportInitialize)ClickPictureProfile).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -88,5 +100,6 @@
         private PictureBox ClickPictureProfile;
         private Label OtzClick;
         private Label ChatClick;
+        private DataGridView dataGridView1;
     }
 }

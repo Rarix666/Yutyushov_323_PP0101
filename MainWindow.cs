@@ -15,6 +15,8 @@ namespace WorkerApp
         public MainWindow()
         {
             InitializeComponent();
+            ConfigureDataGridView();
+            LoadUserWorkerData();
         }
 
         private void ClickPictureProfile_Click(object sender, EventArgs e) //Кнопка перехода на форму профиля
@@ -55,6 +57,71 @@ namespace WorkerApp
             else
             {
                 MessageBox.Show("Ошибка: Данные не загружены");
+            }
+        }
+
+        private void ConfigureDataGridView() //Постройка конфигурации datagrid
+        {
+            dataGridView1.AutoGenerateColumns = false;
+            dataGridView1.Columns.Clear();
+
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn //Настройка столбцов
+            {
+                Name = "salaryColumn",
+                DataPropertyName = "salary", 
+                HeaderText = "Зарплата",
+                ReadOnly = true 
+            });
+
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "worknumColumn",
+                DataPropertyName = "worknum", 
+                HeaderText = "Рабочие числа",
+                ReadOnly = true
+            });
+
+            dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            dataGridView1.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+        }
+
+        private async void LoadUserWorkerData() //Загрузка данных в datagrid
+        {
+            try
+            {
+                // Загрузка данных
+                bool success = await AppState.Supabase.WorkerInform();
+
+                if (!success || AppState.infowork == null)
+                {
+                    MessageBox.Show("Ошибка загрузки данных");
+                    return;
+                }
+
+                // Фильтрация данных
+                var userData = AppState.infowork
+                    .Where(w => w.user_id == AppState.CurrentUser.id)
+                    .ToList();
+
+                var table = new DataTable();
+                table.Columns.Add("salary", typeof(string));
+                table.Columns.Add("worknum", typeof(string));
+
+                foreach (var worker in userData)
+                {
+                    table.Rows.Add(worker.salary, worker.worknum);
+                }
+
+                dataGridView1.DataSource = table;
+
+                dataGridView1.Refresh();
+
+                dataGridView1.ClearSelection();
+                dataGridView1.FirstDisplayedScrollingRowIndex = 0;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка: {ex.Message}");
             }
         }
     }

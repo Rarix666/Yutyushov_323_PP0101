@@ -33,6 +33,7 @@
             richTextFeedback = new RichTextBox();
             EnterFeedback = new Button();
             ExitFeedbeckButton = new Button();
+            TipFIO = new Label();
             SuspendLayout();
             // 
             // FeedbackLabel
@@ -80,11 +81,21 @@
             ExitFeedbeckButton.UseVisualStyleBackColor = true;
             ExitFeedbeckButton.Click += ExitFeedbeckButton_Click;
             // 
+            // TipFIO
+            // 
+            TipFIO.AutoSize = true;
+            TipFIO.Location = new Point(46, 79);
+            TipFIO.Name = "TipFIO";
+            TipFIO.Size = new Size(34, 15);
+            TipFIO.TabIndex = 5;
+            TipFIO.Text = "ФИО";
+            // 
             // Feedback
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(427, 450);
+            Controls.Add(TipFIO);
             Controls.Add(ExitFeedbeckButton);
             Controls.Add(EnterFeedback);
             Controls.Add(richTextFeedback);
@@ -103,5 +114,6 @@
         private RichTextBox richTextFeedback;
         private Button EnterFeedback;
         private Button ExitFeedbeckButton;
+        private Label TipFIO;
     }
 }

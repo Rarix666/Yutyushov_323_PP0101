@@ -13,11 +13,14 @@ namespace WorkerApp
 
         public static List<UsersObject> UsersData { get; set; }
 
+        public static List<InformationWorker> infowork { get; set; }
+
         public static void Reset()
         {
             Supabase = null;
             CurrentUser = null;
             UsersData = null;
+            infowork = null;
         }
     }
 }

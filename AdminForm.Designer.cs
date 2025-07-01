@@ -35,8 +35,6 @@
             CComboLogin = new ComboBox();
             CFIOBox = new TextBox();
             CComboRole = new ComboBox();
-            dataGridView1 = new DataGridView();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
             // CPasswordBox
@@ -100,20 +98,11 @@
             CComboRole.Size = new Size(181, 23);
             CComboRole.TabIndex = 7;
             // 
-            // dataGridView1
-            // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(331, 49);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(431, 233);
-            dataGridView1.TabIndex = 8;
-            // 
             // AdminForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(787, 319);
-            Controls.Add(dataGridView1);
+            ClientSize = new Size(333, 319);
             Controls.Add(CComboRole);
             Controls.Add(CFIOBox);
             Controls.Add(CComboLogin);
@@ -124,7 +113,6 @@
             Name = "AdminForm";
             Text = "AdminForm";
             Load += AdminForm_Load;
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -138,6 +126,5 @@
         private ComboBox CComboLogin;
         private TextBox CFIOBox;
         private ComboBox CComboRole;
-        private DataGridView dataGridView1;
     }
 }

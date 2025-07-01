@@ -32,6 +32,8 @@
             PasswordTextBox = new TextBox();
             EnterAutorizButton = new Button();
             Autoriz = new Label();
+            TipLogin = new Label();
+            TipPassword = new Label();
             SuspendLayout();
             // 
             // LoginTextBox
@@ -68,11 +70,31 @@
             Autoriz.TabIndex = 3;
             Autoriz.Text = "Авторизация";
             // 
+            // TipLogin
+            // 
+            TipLogin.AutoSize = true;
+            TipLogin.Location = new Point(215, 131);
+            TipLogin.Name = "TipLogin";
+            TipLogin.Size = new Size(41, 15);
+            TipLogin.TabIndex = 4;
+            TipLogin.Text = "Логин";
+            // 
+            // TipPassword
+            // 
+            TipPassword.AutoSize = true;
+            TipPassword.Location = new Point(207, 192);
+            TipPassword.Name = "TipPassword";
+            TipPassword.Size = new Size(49, 15);
+            TipPassword.TabIndex = 5;
+            TipPassword.Text = "Пароль";
+            // 
             // Autorization
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(TipPassword);
+            Controls.Add(TipLogin);
             Controls.Add(Autoriz);
             Controls.Add(EnterAutorizButton);
             Controls.Add(PasswordTextBox);
@@ -89,5 +111,7 @@
         private TextBox PasswordTextBox;
         private Button EnterAutorizButton;
         private Label Autoriz;
+        private Label TipLogin;
+        private Label TipPassword;
     }
 }

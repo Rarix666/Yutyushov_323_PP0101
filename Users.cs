@@ -31,4 +31,12 @@ namespace WorkerApp
         public int id;
         public string login;
     }
+
+    public class InformationWorker
+    {
+        public int id;
+        public int user_id;
+        public string salary;
+        public string worknum;
+    }
 }

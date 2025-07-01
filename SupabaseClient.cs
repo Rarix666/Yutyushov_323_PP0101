@@ -52,7 +52,7 @@ namespace WorkerApp
             }
         }
 
-        public async Task<bool> ComboboxUsers() //Заполнение combobox с пользователями для дальнейшей удобной работы в admin системе и чате
+        public async Task<bool> ComboboxUsers() //Заполнение combobox с пользователями для дальнейшей удобной работы в admin системе и чате через функцию
         {
             var request = CreateRequest("/rest/v1/rpc/users");
             var response = await client.ExecuteAsync(request);
@@ -60,6 +60,23 @@ namespace WorkerApp
             {
                 var users = JsonConvert.DeserializeObject<List<UsersObject>>(response.Content);
                 AppState.UsersData = users;
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка парсинга: {ex.Message}");
+                return false;
+            }
+        }
+
+        public async Task<bool> WorkerInform() //Метод необходимый для заполнения datagridview 
+        {
+            var request = CreateRequest("/rest/v1/rpc/workerinfo");
+            var response = await client.ExecuteAsync(request);
+            try
+            {
+                var info = JsonConvert.DeserializeObject<List<InformationWorker>>(response.Content);
+                AppState.infowork = info;
                 return true;
             }
             catch (Exception ex)
@@ -98,7 +115,7 @@ namespace WorkerApp
 
         public async Task<List<MessagesData>> GetChatMessages(int currentUserId, int selectedUserId) //Метод получения сообщений из JSON и их фильтрация
         {
-            // Точный фильтр для двустороннего чата
+            // Точный фильтр для двустороннего чата через прямой запрос к Supabase
             string url = $"/rest/v1/messages?select=*" +
                         $"&or=(and(sender_id.eq.{currentUserId},receiver_id.eq.{selectedUserId})" +
                         $",and(sender_id.eq.{selectedUserId},receiver_id.eq.{currentUserId}))" +
