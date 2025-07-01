@@ -32,6 +32,7 @@
             listBox1 = new ListBox();
             chatTextBox = new TextBox();
             EnterChatButton = new Button();
+            ExitChatButton = new Button();
             SuspendLayout();
             // 
             // comboBoxPeopleChat
@@ -68,11 +69,22 @@
             EnterChatButton.UseVisualStyleBackColor = true;
             EnterChatButton.Click += EnterChatButton_Click;
             // 
+            // ExitChatButton
+            // 
+            ExitChatButton.Location = new Point(388, 12);
+            ExitChatButton.Name = "ExitChatButton";
+            ExitChatButton.Size = new Size(75, 23);
+            ExitChatButton.TabIndex = 4;
+            ExitChatButton.Text = "Выйти";
+            ExitChatButton.UseVisualStyleBackColor = true;
+            ExitChatButton.Click += ExitChatButton_Click;
+            // 
             // ChatForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(475, 450);
+            Controls.Add(ExitChatButton);
             Controls.Add(EnterChatButton);
             Controls.Add(chatTextBox);
             Controls.Add(listBox1);
@@ -88,5 +100,6 @@
         private TextBox chatTextBox;
         private Button EnterChatButton;
         public ComboBox comboBoxPeopleChat;
+        private Button ExitChatButton;
     }
 }

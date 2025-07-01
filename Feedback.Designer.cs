@@ -32,6 +32,7 @@
             FeedbackFIO = new TextBox();
             richTextFeedback = new RichTextBox();
             EnterFeedback = new Button();
+            ExitFeedbeckButton = new Button();
             SuspendLayout();
             // 
             // FeedbackLabel
@@ -69,11 +70,22 @@
             EnterFeedback.UseVisualStyleBackColor = true;
             EnterFeedback.Click += EnterFeedback_Click;
             // 
+            // ExitFeedbeckButton
+            // 
+            ExitFeedbeckButton.Location = new Point(340, 12);
+            ExitFeedbeckButton.Name = "ExitFeedbeckButton";
+            ExitFeedbeckButton.Size = new Size(75, 23);
+            ExitFeedbeckButton.TabIndex = 4;
+            ExitFeedbeckButton.Text = "Выйти";
+            ExitFeedbeckButton.UseVisualStyleBackColor = true;
+            ExitFeedbeckButton.Click += ExitFeedbeckButton_Click;
+            // 
             // Feedback
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(427, 450);
+            Controls.Add(ExitFeedbeckButton);
             Controls.Add(EnterFeedback);
             Controls.Add(richTextFeedback);
             Controls.Add(FeedbackFIO);
@@ -90,5 +102,6 @@
         private TextBox FeedbackFIO;
         private RichTextBox richTextFeedback;
         private Button EnterFeedback;
+        private Button ExitFeedbeckButton;
     }
 }

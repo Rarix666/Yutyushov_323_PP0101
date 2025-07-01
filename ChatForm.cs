@@ -16,11 +16,20 @@ namespace WorkerApp
         {
             InitializeComponent();
         }
+
+        private System.Windows.Forms.Timer refreshTimer; //Таймер для listbox
+
         public ChatForm(List<UsersObject> usersData) //Конструктор заполнения combobox
         {
             InitializeComponent();
 
-            if (usersData == null || usersData.Count == 0)
+            refreshTimer = new System.Windows.Forms.Timer();
+            refreshTimer.Interval = 2000;
+            refreshTimer.Tick += RefreshTimer_Tick;
+            refreshTimer.Start();
+
+
+            if (usersData == null || usersData.Count == 0) //Проверка, загрузились ли пользователи в combobox
             {
                 MessageBox.Show("Ошибка отображения пользователей");
                 return;
@@ -33,9 +42,18 @@ namespace WorkerApp
             comboBoxPeopleChat.DataSource = displayList;
             comboBoxPeopleChat.DisplayMember = "Display";
             comboBoxPeopleChat.ValueMember = "Value";
+            this.FormClosing += (sender, e) => refreshTimer?.Stop();
         }
 
-        private async Task LoadMessages()
+        private async void RefreshTimer_Tick(object sender, EventArgs e) //Обработка тика таймера
+        {
+            if (comboBoxPeopleChat.SelectedValue != null)
+            {
+                await LoadMessages();
+            }
+        }
+
+        private async Task LoadMessages() //Метод загрузки сообщений
         {
             try
             {
@@ -48,15 +66,6 @@ namespace WorkerApp
 
                 foreach (var msg in messages.OrderBy(m => m.time))
                 {
-                    // Временная проверка (выводим в Output)
-                    MessageBox.Show(
-                        $"Текущий пользователь: ID={currentUserId}\n" +
-                        $"Отправитель сообщения: ID={msg.sender_id}\n" +
-                        $"Получатель: ID={msg.receiver_id}\n" +
-                        $"Текст: {msg.text}\n" +
-                        $"Время: {msg.time}"
-                    );
-
                     bool isMyMessage = msg.sender_id == currentUserId;
                     string prefix = isMyMessage ? "Я: " : $"{comboBoxPeopleChat.Text}: ";
 
@@ -69,43 +78,37 @@ namespace WorkerApp
             }
         }
 
-        private async void EnterChatButton_Click(object sender, EventArgs e)
+        private async void EnterChatButton_Click(object sender, EventArgs e) //Кнопка отправки сообщений
         {
-            MessageBox.Show($"Текущий пользователь: ID={AppState.CurrentUser.id}");
-
             if (AppState.CurrentUser.id == 0)
             {
                 MessageBox.Show("Ошибка: ID пользователя невалиден. Закройте чат и войдите снова.");
                 return;
             }
-            // 1. Жесткая проверка авторизации
+            // Проверка авторизации
             if (AppState.CurrentUser == null || AppState.CurrentUser.id <= 0)
             {
                 MessageBox.Show("Ошибка: Вы не авторизованы. Перезайдите в систему");
                 return;
             }
-
-            // 2. Проверка выбора собеседника
+            // Проверка выбора собеседника
             if (comboBoxPeopleChat.SelectedValue == null)
             {
                 MessageBox.Show("Выберите собеседника");
                 return;
             }
-
-            // 3. Проверка текста сообщения
+            // Проверка текста сообщения
             if (string.IsNullOrWhiteSpace(chatTextBox.Text))
             {
                 MessageBox.Show("Введите текст сообщения");
                 return;
             }
-
-            // 4. Отправка сообщения
+            // Отправка сообщения
             bool success = await AppState.Supabase.SendMessage(
-                AppState.CurrentUser.id, // Используем реальный ID из AppState
+                AppState.CurrentUser.id,
                 (int)comboBoxPeopleChat.SelectedValue,
                 chatTextBox.Text
             );
-
             if (success)
             {
                 chatTextBox.Clear();
@@ -115,6 +118,13 @@ namespace WorkerApp
             {
                 MessageBox.Show("Не удалось отправить сообщение");
             }
+        }
+
+        private void ExitChatButton_Click(object sender, EventArgs e)
+        {
+            MainWindow main = new MainWindow();
+            main.Show();
+            this.Close();
         }
     }
 }

@@ -40,7 +40,7 @@ namespace WorkerApp
                     EnableSsl = true,
                     DeliveryMethod = SmtpDeliveryMethod.Network,
                     UseDefaultCredentials = false,
-                    Credentials = new NetworkCredential("RUshan.Bog@mail.ru", "lFFIcW5vjm8UFIlDVyeP"),
+                    Credentials = new NetworkCredential("RUshan.Bog@mail.ru", "Rgxk1PudJkvHmyBvhFl8"),
                 };
                 using (var message = new MailMessage(fromAddress, toAddress)
                 {
@@ -51,11 +51,18 @@ namespace WorkerApp
                 {
                     smtp.Send(message);
                 }
-                MessageBox.Show("Сообщение доставлено в ТехПоддержку");
+                MessageBox.Show("Сообщение доставлено");
                 MainWindow main = new MainWindow();
                 main.Show();
                 this.Hide();
             }
+        }
+
+        private void ExitFeedbeckButton_Click(object sender, EventArgs e)
+        {
+            MainWindow main = new MainWindow();
+            main.Show();
+            this.Close();
         }
     }
 }

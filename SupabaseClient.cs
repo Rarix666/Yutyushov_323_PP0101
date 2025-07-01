@@ -96,7 +96,7 @@ namespace WorkerApp
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;
         }
 
-        public async Task<List<MessagesData>> GetChatMessages(int currentUserId, int selectedUserId)
+        public async Task<List<MessagesData>> GetChatMessages(int currentUserId, int selectedUserId) //Метод получения сообщений из JSON и их фильтрация
         {
             // Точный фильтр для двустороннего чата
             string url = $"/rest/v1/messages?select=*" +
@@ -109,9 +109,9 @@ namespace WorkerApp
             return JsonConvert.DeserializeObject<List<MessagesData>>(response.Content);
         }
 
-        public async Task<bool> SendMessage(int senderId, int receiverId, string messageText)
+        public async Task<bool> SendMessage(int senderId, int receiverId, string messageText) //Метод для отправки сообщений
         {
-            // Жёсткая проверка ID
+            // Проверка ID
             if (senderId <= 0 || receiverId <= 0)
             {
                 MessageBox.Show($"Ошибка: Некорректные ID (отправитель: {senderId}, получатель: {receiverId})");
@@ -127,9 +127,6 @@ namespace WorkerApp
             });
 
             var response = await client.ExecuteAsync(request);
-
-            // Логирование для отладки
-            MessageBox.Show($"Отправка: sender_id={senderId}, receiver_id={receiverId}, status={response.StatusCode}");
 
             return response.IsSuccessful;
         }
