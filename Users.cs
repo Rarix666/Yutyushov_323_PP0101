@@ -26,13 +26,13 @@ namespace WorkerApp
         public DateTime time;
     }
 
-    public class UsersObject //Конструктор для заполнения combobox-ов
+    public class UsersObject //Конструктор для заполнения combobox-ов в админ панели и чате
     {
         public int id;
         public string login;
     }
 
-    public class InformationWorker
+    public class InformationWorker //Конструктор для заполнения combobox в профиле 
     {
         public int id;
         public int user_id;

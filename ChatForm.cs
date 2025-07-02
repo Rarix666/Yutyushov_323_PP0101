@@ -120,7 +120,7 @@ namespace WorkerApp
             }
         }
 
-        private void ExitChatButton_Click(object sender, EventArgs e)
+        private void ExitChatButton_Click(object sender, EventArgs e) //Выход из формы чата
         {
             MainWindow main = new MainWindow();
             main.Show();

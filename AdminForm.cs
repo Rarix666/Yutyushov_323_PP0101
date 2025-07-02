@@ -104,5 +104,12 @@ namespace WorkerApp
                 MessageBox.Show($"Ошибка: {ex.Message}");
             }
         }
+
+        private void ExitAdminButton_Click(object sender, EventArgs e) //Выйход из аккаунта
+        {
+            Autorization autorization = new Autorization();
+            autorization.Show();
+            this.Close();
+        }
     }
 }

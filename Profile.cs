@@ -18,21 +18,21 @@ namespace WorkerApp
             ProfUser();
         }
 
-        public void ProfUser()
+        public void ProfUser() //Метод заполнения label-ов данными авторизованного пользователя
         {
             FIOLabel.Text = AppState.CurrentUser.name;
             BirthdayLabel.Text = AppState.CurrentUser.birthday.ToString();
             PostLabel.Text = AppState.CurrentUser.posts;
             mailLabel.Text = AppState.CurrentUser.mail;
         }
-        private void ButtonExitProf_Click(object sender, EventArgs e)
+        private void ButtonExitProf_Click(object sender, EventArgs e) //Кнопка выхода
         {
             Autorization autorization = new Autorization();
             autorization.Show();
             this.Close();
         }
 
-        private void UpdateUsers_Click(object sender, EventArgs e)
+        private void UpdateUsers_Click(object sender, EventArgs e) //Кнопка отображения панели обновления
         {
             if (panel1.Visible == true)
             {
@@ -47,7 +47,7 @@ namespace WorkerApp
             }
         }
 
-        private async void Updatebut_Click(object sender, EventArgs e)
+        private async void Updatebut_Click(object sender, EventArgs e) //Кнопка обновления данных
         {
             int ids = AppState.CurrentUser.id;
             DateTime ubirthday = DateTime.Parse(birthdayTextBox.Text);
@@ -55,7 +55,7 @@ namespace WorkerApp
             string umail = mailTextBox.Text;
             if (birthdayTextBox.Text == "" || PostsTextBox.Text == "" || mailTextBox.Text == "")
             {
-                MessageBox.Show("Заполните поле логина!");
+                MessageBox.Show("Заполните все поля!");
                 return;
             }
             bool result = await AppState.Supabase.UpdateUser(ids, ubirthday, upost, umail);

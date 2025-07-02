@@ -35,6 +35,7 @@
             CComboLogin = new ComboBox();
             CFIOBox = new TextBox();
             CComboRole = new ComboBox();
+            ExitAdminButton = new Button();
             SuspendLayout();
             // 
             // CPasswordBox
@@ -98,11 +99,22 @@
             CComboRole.Size = new Size(181, 23);
             CComboRole.TabIndex = 7;
             // 
+            // ExitAdminButton
+            // 
+            ExitAdminButton.Location = new Point(246, 12);
+            ExitAdminButton.Name = "ExitAdminButton";
+            ExitAdminButton.Size = new Size(75, 23);
+            ExitAdminButton.TabIndex = 8;
+            ExitAdminButton.Text = "Выйти";
+            ExitAdminButton.UseVisualStyleBackColor = true;
+            ExitAdminButton.Click += ExitAdminButton_Click;
+            // 
             // AdminForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(333, 319);
+            Controls.Add(ExitAdminButton);
             Controls.Add(CComboRole);
             Controls.Add(CFIOBox);
             Controls.Add(CComboLogin);
@@ -126,5 +138,6 @@
         private ComboBox CComboLogin;
         private TextBox CFIOBox;
         private ComboBox CComboRole;
+        private Button ExitAdminButton;
     }
 }

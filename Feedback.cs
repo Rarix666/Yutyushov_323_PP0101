@@ -40,7 +40,7 @@ namespace WorkerApp
                     EnableSsl = true,
                     DeliveryMethod = SmtpDeliveryMethod.Network,
                     UseDefaultCredentials = false,
-                    Credentials = new NetworkCredential("RUshan.Bog@mail.ru", "Rgxk1PudJkvHmyBvhFl8"),
+                    Credentials = new NetworkCredential("RUshan.Bog@mail.ru", "um9wgq8cL2ecpiZrDy4U"),
                 };
                 using (var message = new MailMessage(fromAddress, toAddress)
                 {
