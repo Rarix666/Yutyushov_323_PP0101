@@ -36,28 +36,36 @@
             CFIOBox = new TextBox();
             CComboRole = new ComboBox();
             ExitAdminButton = new Button();
+            label2 = new Label();
+            label3 = new Label();
+            label4 = new Label();
+            label5 = new Label();
+            COtdelBox = new ComboBox();
+            label6 = new Label();
+            dataGridView1 = new DataGridView();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
             // CPasswordBox
             // 
-            CPasswordBox.Location = new Point(67, 214);
+            CPasswordBox.Location = new Point(67, 187);
             CPasswordBox.Name = "CPasswordBox";
             CPasswordBox.Size = new Size(181, 23);
             CPasswordBox.TabIndex = 1;
             // 
             // CreateUsers
             // 
-            CreateUsers.Location = new Point(80, 259);
+            CreateUsers.Location = new Point(79, 271);
             CreateUsers.Name = "CreateUsers";
             CreateUsers.Size = new Size(75, 23);
             CreateUsers.TabIndex = 2;
-            CreateUsers.Text = "Создать";
+            CreateUsers.Text = "Сохранить";
             CreateUsers.UseVisualStyleBackColor = true;
             CreateUsers.Click += CreateUsers_Click;
             // 
             // DeleteUsers
             // 
-            DeleteUsers.Location = new Point(161, 259);
+            DeleteUsers.Location = new Point(160, 271);
             DeleteUsers.Name = "DeleteUsers";
             DeleteUsers.Size = new Size(75, 23);
             DeleteUsers.TabIndex = 3;
@@ -69,7 +77,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            label1.Location = new Point(67, 44);
+            label1.Location = new Point(445, 35);
             label1.Name = "label1";
             label1.Size = new Size(181, 32);
             label1.TabIndex = 4;
@@ -78,14 +86,14 @@
             // CComboLogin
             // 
             CComboLogin.FormattingEnabled = true;
-            CComboLogin.Location = new Point(67, 98);
+            CComboLogin.Location = new Point(67, 67);
             CComboLogin.Name = "CComboLogin";
             CComboLogin.Size = new Size(181, 23);
             CComboLogin.TabIndex = 5;
             // 
             // CFIOBox
             // 
-            CFIOBox.Location = new Point(67, 138);
+            CFIOBox.Location = new Point(67, 105);
             CFIOBox.Name = "CFIOBox";
             CFIOBox.Size = new Size(181, 23);
             CFIOBox.TabIndex = 6;
@@ -93,15 +101,15 @@
             // CComboRole
             // 
             CComboRole.FormattingEnabled = true;
-            CComboRole.Items.AddRange(new object[] { "worker", "admin" });
-            CComboRole.Location = new Point(67, 176);
+            CComboRole.Items.AddRange(new object[] { "worker", "manager" });
+            CComboRole.Location = new Point(87, 145);
             CComboRole.Name = "CComboRole";
-            CComboRole.Size = new Size(181, 23);
+            CComboRole.Size = new Size(161, 23);
             CComboRole.TabIndex = 7;
             // 
             // ExitAdminButton
             // 
-            ExitAdminButton.Location = new Point(246, 12);
+            ExitAdminButton.Location = new Point(688, 12);
             ExitAdminButton.Name = "ExitAdminButton";
             ExitAdminButton.Size = new Size(75, 23);
             ExitAdminButton.TabIndex = 8;
@@ -109,11 +117,80 @@
             ExitAdminButton.UseVisualStyleBackColor = true;
             ExitAdminButton.Click += ExitAdminButton_Click;
             // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(23, 70);
+            label2.Name = "label2";
+            label2.Size = new Size(41, 15);
+            label2.TabIndex = 9;
+            label2.Text = "Логин";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(27, 108);
+            label3.Name = "label3";
+            label3.Size = new Size(34, 15);
+            label3.TabIndex = 10;
+            label3.Text = "ФИО";
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(12, 148);
+            label4.Name = "label4";
+            label4.Size = new Size(69, 15);
+            label4.TabIndex = 11;
+            label4.Text = "Должность";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(12, 190);
+            label5.Name = "label5";
+            label5.Size = new Size(49, 15);
+            label5.TabIndex = 12;
+            label5.Text = "Пароль";
+            // 
+            // COtdelBox
+            // 
+            COtdelBox.FormattingEnabled = true;
+            COtdelBox.Location = new Point(67, 231);
+            COtdelBox.Name = "COtdelBox";
+            COtdelBox.Size = new Size(181, 23);
+            COtdelBox.TabIndex = 13;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(23, 234);
+            label6.Name = "label6";
+            label6.Size = new Size(40, 15);
+            label6.TabIndex = 14;
+            label6.Text = "Отдел";
+            // 
+            // dataGridView1
+            // 
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Location = new Point(290, 70);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.Size = new Size(473, 203);
+            dataGridView1.TabIndex = 15;
+            // 
             // AdminForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(333, 319);
+            BackColor = Color.GreenYellow;
+            ClientSize = new Size(775, 319);
+            Controls.Add(dataGridView1);
+            Controls.Add(label6);
+            Controls.Add(COtdelBox);
+            Controls.Add(label5);
+            Controls.Add(label4);
+            Controls.Add(label3);
+            Controls.Add(label2);
             Controls.Add(ExitAdminButton);
             Controls.Add(CComboRole);
             Controls.Add(CFIOBox);
@@ -125,6 +202,7 @@
             Name = "AdminForm";
             Text = "AdminForm";
             Load += AdminForm_Load;
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -139,5 +217,12 @@
         private TextBox CFIOBox;
         private ComboBox CComboRole;
         private Button ExitAdminButton;
+        private Label label2;
+        private Label label3;
+        private Label label4;
+        private Label label5;
+        private ComboBox COtdelBox;
+        private Label label6;
+        private DataGridView dataGridView1;
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace WorkerApp
 {
-    partial class MainWindow
+    partial class ManagerWindow
     {
         /// <summary>
         /// Required designer variable.
@@ -29,14 +29,14 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ManagerWindow));
             ClickPictureProfile = new PictureBox();
-            OtzClick = new Label();
-            ChatClick = new Label();
-            dataGridView1 = new DataGridView();
             label1 = new Label();
+            dataGridView1 = new DataGridView();
+            ChatClickManager = new Label();
+            WorkersManager = new Label();
             ExitButtonMain = new Button();
-            label2 = new Label();
+            label3 = new Label();
             contextMenuStrip1 = new ContextMenuStrip(components);
             ((System.ComponentModel.ISupportInitialize)ClickPictureProfile).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
@@ -45,93 +45,93 @@
             // ClickPictureProfile
             // 
             ClickPictureProfile.Image = (Image)resources.GetObject("ClickPictureProfile.Image");
-            ClickPictureProfile.Location = new Point(26, 12);
+            ClickPictureProfile.Location = new Point(29, 23);
             ClickPictureProfile.Name = "ClickPictureProfile";
             ClickPictureProfile.Size = new Size(100, 88);
             ClickPictureProfile.SizeMode = PictureBoxSizeMode.StretchImage;
-            ClickPictureProfile.TabIndex = 0;
+            ClickPictureProfile.TabIndex = 1;
             ClickPictureProfile.TabStop = false;
             ClickPictureProfile.Click += ClickPictureProfile_Click;
-            // 
-            // OtzClick
-            // 
-            OtzClick.AutoSize = true;
-            OtzClick.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            OtzClick.Location = new Point(168, 12);
-            OtzClick.Name = "OtzClick";
-            OtzClick.Size = new Size(81, 32);
-            OtzClick.TabIndex = 1;
-            OtzClick.Text = "Отчёт";
-            OtzClick.Click += OtzClick_Click;
-            // 
-            // ChatClick
-            // 
-            ChatClick.AutoSize = true;
-            ChatClick.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            ChatClick.Location = new Point(288, 12);
-            ChatClick.Name = "ChatClick";
-            ChatClick.Size = new Size(55, 32);
-            ChatClick.TabIndex = 2;
-            ChatClick.Text = "Чат";
-            ChatClick.Click += ChatClick_Click;
-            // 
-            // dataGridView1
-            // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(37, 186);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(416, 189);
-            dataGridView1.TabIndex = 3;
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            label1.Location = new Point(222, 158);
+            label1.Location = new Point(302, 134);
             label1.Name = "label1";
-            label1.Size = new Size(78, 25);
-            label1.TabIndex = 4;
-            label1.Text = "Задачи";
+            label1.Size = new Size(147, 25);
+            label1.TabIndex = 6;
+            label1.Text = "Задачи отдела";
+            // 
+            // dataGridView1
+            // 
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Location = new Point(131, 162);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.Size = new Size(461, 189);
+            dataGridView1.TabIndex = 5;
+            // 
+            // ChatClickManager
+            // 
+            ChatClickManager.AutoSize = true;
+            ChatClickManager.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 204);
+            ChatClickManager.Location = new Point(382, 23);
+            ChatClickManager.Name = "ChatClickManager";
+            ChatClickManager.Size = new Size(55, 32);
+            ChatClickManager.TabIndex = 7;
+            ChatClickManager.Text = "Чат";
+            ChatClickManager.Click += ChatClickManager_Click;
+            // 
+            // WorkersManager
+            // 
+            WorkersManager.AutoSize = true;
+            WorkersManager.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 204);
+            WorkersManager.Location = new Point(171, 23);
+            WorkersManager.Name = "WorkersManager";
+            WorkersManager.Size = new Size(155, 32);
+            WorkersManager.TabIndex = 8;
+            WorkersManager.Text = "Сотрудники";
+            WorkersManager.Click += WorkersManager_Click;
             // 
             // ExitButtonMain
             // 
-            ExitButtonMain.Location = new Point(396, 12);
+            ExitButtonMain.Location = new Point(508, 23);
             ExitButtonMain.Name = "ExitButtonMain";
             ExitButtonMain.Size = new Size(75, 23);
-            ExitButtonMain.TabIndex = 5;
+            ExitButtonMain.TabIndex = 9;
             ExitButtonMain.Text = "Выход";
             ExitButtonMain.UseVisualStyleBackColor = true;
             ExitButtonMain.Click += ExitButtonMain_Click;
             // 
-            // label2
+            // label3
             // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            label2.Location = new Point(12, 103);
-            label2.Name = "label2";
-            label2.Size = new Size(135, 21);
-            label2.TabIndex = 6;
-            label2.Text = "Личный кабинет";
-            label2.Click += label2_Click;
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 204);
+            label3.Location = new Point(12, 114);
+            label3.Name = "label3";
+            label3.Size = new Size(135, 21);
+            label3.TabIndex = 10;
+            label3.Text = "Личный кабинет";
+            label3.Click += label3_Click;
             // 
             // contextMenuStrip1
             // 
             contextMenuStrip1.Name = "contextMenuStrip1";
-            contextMenuStrip1.Size = new Size(181, 26);
+            contextMenuStrip1.Size = new Size(61, 4);
             // 
-            // MainWindow
+            // ManagerWindow
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(483, 387);
-            Controls.Add(label2);
+            ClientSize = new Size(604, 363);
+            Controls.Add(label3);
             Controls.Add(ExitButtonMain);
+            Controls.Add(WorkersManager);
+            Controls.Add(ChatClickManager);
             Controls.Add(label1);
             Controls.Add(dataGridView1);
-            Controls.Add(ChatClick);
-            Controls.Add(OtzClick);
             Controls.Add(ClickPictureProfile);
-            Name = "MainWindow";
+            Name = "ManagerWindow";
             Text = "Главное окно";
             ((System.ComponentModel.ISupportInitialize)ClickPictureProfile).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
@@ -142,12 +142,12 @@
         #endregion
 
         private PictureBox ClickPictureProfile;
-        private Label OtzClick;
-        private Label ChatClick;
-        private DataGridView dataGridView1;
         private Label label1;
+        private DataGridView dataGridView1;
+        private Label ChatClickManager;
+        private Label WorkersManager;
         private Button ExitButtonMain;
-        private Label label2;
+        private Label label3;
         private ContextMenuStrip contextMenuStrip1;
     }
 }

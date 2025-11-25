@@ -92,7 +92,8 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            BackColor = Color.MediumSlateBlue;
+            ClientSize = new Size(743, 421);
             Controls.Add(TipPassword);
             Controls.Add(TipLogin);
             Controls.Add(Autoriz);

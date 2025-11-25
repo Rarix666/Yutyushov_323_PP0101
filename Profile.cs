@@ -21,9 +21,10 @@ namespace WorkerApp
         public void ProfUser() //Метод заполнения label-ов данными авторизованного пользователя
         {
             FIOLabel.Text = AppState.CurrentUser.name;
-            BirthdayLabel.Text = AppState.CurrentUser.birthday.ToString();
-            PostLabel.Text = AppState.CurrentUser.posts;
+            BirthdayLabel.Text = AppState.CurrentUser.birthday.ToString("dd.MM.yyyy");
+            PostLabel.Text = AppState.CurrentUser.role;
             mailLabel.Text = AppState.CurrentUser.mail;
+            GroupLabel.Text = AppState.CurrentUser.posts;
         }
         private void ButtonExitProf_Click(object sender, EventArgs e) //Кнопка выхода
         {
@@ -42,7 +43,6 @@ namespace WorkerApp
             {
                 panel1.Visible = true;
                 BirthdayLabel.Text = AppState.CurrentUser.birthday.ToString();
-                PostLabel.Text = AppState.CurrentUser.posts;
                 mailLabel.Text = AppState.CurrentUser.mail;
             }
         }
@@ -51,14 +51,13 @@ namespace WorkerApp
         {
             int ids = AppState.CurrentUser.id;
             DateTime ubirthday = DateTime.Parse(birthdayTextBox.Text);
-            string upost = PostsTextBox.Text;
             string umail = mailTextBox.Text;
-            if (birthdayTextBox.Text == "" || PostsTextBox.Text == "" || mailTextBox.Text == "")
+            if (birthdayTextBox.Text == "" || mailTextBox.Text == "")
             {
                 MessageBox.Show("Заполните все поля!");
                 return;
             }
-            bool result = await AppState.Supabase.UpdateUser(ids, ubirthday, upost, umail);
+            bool result = await AppState.Supabase.UpdateUser(ids, ubirthday, umail);
             if (result)
             {
                 MessageBox.Show("Данные успешно обновлены, перезайдите в аккаунт!");
@@ -66,6 +65,28 @@ namespace WorkerApp
             else
             {
                 MessageBox.Show("Ошибка обновления данных");
+            }
+        }
+
+        private void BackToMain_Click(object sender, EventArgs e)
+        {
+            if (AppState.CurrentUser.role == "worker")
+            {
+                MainWindow main = new MainWindow();
+                main.Show();
+                this.Close();
+            }
+            if (AppState.CurrentUser.role == "manager")
+            {
+                ManagerWindow manager = new ManagerWindow();
+                manager.Show();
+                this.Close();
+            }
+            if (AppState.CurrentUser.role == "Директор")
+            {
+                DirectorWindow director = new DirectorWindow();
+                director.Show();
+                this.Close();
             }
         }
     }

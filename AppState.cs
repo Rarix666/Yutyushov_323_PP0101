@@ -13,7 +13,13 @@ namespace WorkerApp
 
         public static List<UsersObject> UsersData { get; set; }
 
+        public static List<DepartmentObject> DepartmentData { get; set; }
+
         public static List<InformationWorker> infowork { get; set; }
+
+        public static List<InformationAdmin> infoAdmin { get; set; }
+
+        public static List<InformationManager> infoManager { get; set; }
 
         public static void Reset()
         {
@@ -21,6 +27,7 @@ namespace WorkerApp
             CurrentUser = null;
             UsersData = null;
             infowork = null;
+            infoAdmin = null;
         }
     }
 }

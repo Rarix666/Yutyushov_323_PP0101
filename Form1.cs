@@ -30,11 +30,25 @@ namespace WorkerApp
                     admin.Show();
                     this.Hide();
                 }
-                else
+                if (AppState.CurrentUser.role == "worker")
                 {
                     MessageBox.Show("Вы авторизованы как сотрудник");
                     MainWindow main = new MainWindow();
                     main.Show();
+                    this.Hide();
+                }
+                if (AppState.CurrentUser.role == "manager")
+                {
+                    MessageBox.Show("Вы авторизованы как менеджер");
+                    ManagerWindow manager = new ManagerWindow();
+                    manager.Show();
+                    this.Hide();
+                }
+                if (AppState.CurrentUser.role == "Директор")
+                {
+                    MessageBox.Show("Вы авторизованы как директор");
+                    DirectorWindow director = new DirectorWindow();
+                    director.Show();
                     this.Hide();
                 }
             }

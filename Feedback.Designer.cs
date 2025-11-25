@@ -40,11 +40,11 @@
             // 
             FeedbackLabel.AutoSize = true;
             FeedbackLabel.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            FeedbackLabel.Location = new Point(120, 19);
+            FeedbackLabel.Location = new Point(171, 27);
             FeedbackLabel.Name = "FeedbackLabel";
-            FeedbackLabel.Size = new Size(175, 30);
+            FeedbackLabel.Size = new Size(73, 30);
             FeedbackLabel.TabIndex = 0;
-            FeedbackLabel.Text = "Оставить отзыв";
+            FeedbackLabel.Text = "Отчёт";
             // 
             // FeedbackFIO
             // 
@@ -94,6 +94,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.GreenYellow;
             ClientSize = new Size(427, 450);
             Controls.Add(TipFIO);
             Controls.Add(ExitFeedbeckButton);
@@ -102,7 +103,7 @@
             Controls.Add(FeedbackFIO);
             Controls.Add(FeedbackLabel);
             Name = "Feedback";
-            Text = "Отправить отзыв";
+            Text = "Отчёт";
             ResumeLayout(false);
             PerformLayout();
         }

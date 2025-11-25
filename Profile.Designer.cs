@@ -36,13 +36,18 @@
             ButtonExitProf = new Button();
             UpdateUsers = new Button();
             panel1 = new Panel();
+            label3 = new Label();
+            label1 = new Label();
             Updatebut = new Button();
             mailTextBox = new TextBox();
-            PostsTextBox = new TextBox();
             birthdayTextBox = new TextBox();
-            label1 = new Label();
+            BackToMain = new Button();
+            GroupLabel = new Label();
             label2 = new Label();
-            label3 = new Label();
+            label4 = new Label();
+            label5 = new Label();
+            label6 = new Label();
+            label7 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel1.SuspendLayout();
             SuspendLayout();
@@ -50,42 +55,42 @@
             // FIOLabel
             // 
             FIOLabel.AutoSize = true;
-            FIOLabel.Location = new Point(23, 51);
+            FIOLabel.Location = new Point(110, 51);
             FIOLabel.Name = "FIOLabel";
-            FIOLabel.Size = new Size(34, 15);
+            FIOLabel.Size = new Size(40, 15);
             FIOLabel.TabIndex = 0;
-            FIOLabel.Text = "ФИО";
+            FIOLabel.Text = "Пусто";
             // 
             // BirthdayLabel
             // 
             BirthdayLabel.AutoSize = true;
-            BirthdayLabel.Location = new Point(23, 102);
+            BirthdayLabel.Location = new Point(110, 91);
             BirthdayLabel.Name = "BirthdayLabel";
-            BirthdayLabel.Size = new Size(84, 15);
+            BirthdayLabel.Size = new Size(40, 15);
             BirthdayLabel.TabIndex = 1;
-            BirthdayLabel.Text = "Год рождения";
+            BirthdayLabel.Text = "Пусто";
             // 
             // PostLabel
             // 
             PostLabel.AutoSize = true;
-            PostLabel.Location = new Point(23, 160);
+            PostLabel.Location = new Point(110, 166);
             PostLabel.Name = "PostLabel";
-            PostLabel.Size = new Size(69, 15);
+            PostLabel.Size = new Size(40, 15);
             PostLabel.TabIndex = 2;
-            PostLabel.Text = "Должность";
+            PostLabel.Text = "Пусто";
             // 
             // mailLabel
             // 
             mailLabel.AutoSize = true;
-            mailLabel.Location = new Point(23, 209);
+            mailLabel.Location = new Point(110, 209);
             mailLabel.Name = "mailLabel";
-            mailLabel.Size = new Size(41, 15);
+            mailLabel.Size = new Size(40, 15);
             mailLabel.TabIndex = 3;
-            mailLabel.Text = "Почта";
+            mailLabel.Text = "Пусто";
             // 
             // pictureBox1
             // 
-            pictureBox1.Location = new Point(291, 32);
+            pictureBox1.Location = new Point(361, 32);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(228, 202);
             pictureBox1.TabIndex = 4;
@@ -103,7 +108,7 @@
             // 
             // UpdateUsers
             // 
-            UpdateUsers.Location = new Point(350, 274);
+            UpdateUsers.Location = new Point(450, 274);
             UpdateUsers.Name = "UpdateUsers";
             UpdateUsers.Size = new Size(139, 23);
             UpdateUsers.TabIndex = 6;
@@ -114,21 +119,37 @@
             // panel1
             // 
             panel1.Controls.Add(label3);
-            panel1.Controls.Add(label2);
             panel1.Controls.Add(label1);
             panel1.Controls.Add(Updatebut);
             panel1.Controls.Add(mailTextBox);
-            panel1.Controls.Add(PostsTextBox);
             panel1.Controls.Add(birthdayTextBox);
-            panel1.Location = new Point(204, 32);
+            panel1.Location = new Point(274, 32);
             panel1.Name = "panel1";
             panel1.Size = new Size(315, 202);
             panel1.TabIndex = 7;
             panel1.Visible = false;
             // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(56, 99);
+            label3.Name = "label3";
+            label3.Size = new Size(41, 15);
+            label3.TabIndex = 6;
+            label3.Text = "Почта";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(7, 54);
+            label1.Name = "label1";
+            label1.Size = new Size(90, 15);
+            label1.TabIndex = 4;
+            label1.Text = "Дата рождения";
+            // 
             // Updatebut
             // 
-            Updatebut.Location = new Point(165, 161);
+            Updatebut.Location = new Point(146, 134);
             Updatebut.Name = "Updatebut";
             Updatebut.Size = new Size(75, 23);
             Updatebut.TabIndex = 3;
@@ -138,57 +159,95 @@
             // 
             // mailTextBox
             // 
-            mailTextBox.Location = new Point(103, 112);
+            mailTextBox.Location = new Point(103, 96);
             mailTextBox.Name = "mailTextBox";
             mailTextBox.Size = new Size(192, 23);
             mailTextBox.TabIndex = 2;
             // 
-            // PostsTextBox
-            // 
-            PostsTextBox.Location = new Point(103, 59);
-            PostsTextBox.Name = "PostsTextBox";
-            PostsTextBox.Size = new Size(192, 23);
-            PostsTextBox.TabIndex = 1;
-            // 
             // birthdayTextBox
             // 
-            birthdayTextBox.Location = new Point(103, 11);
+            birthdayTextBox.Location = new Point(103, 51);
             birthdayTextBox.Name = "birthdayTextBox";
             birthdayTextBox.Size = new Size(192, 23);
             birthdayTextBox.TabIndex = 0;
             // 
-            // label1
+            // BackToMain
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(13, 14);
-            label1.Name = "label1";
-            label1.Size = new Size(92, 15);
-            label1.TabIndex = 4;
-            label1.Text = "День рождения";
+            BackToMain.Location = new Point(514, 3);
+            BackToMain.Name = "BackToMain";
+            BackToMain.Size = new Size(75, 23);
+            BackToMain.TabIndex = 8;
+            BackToMain.Text = "Назад";
+            BackToMain.UseVisualStyleBackColor = true;
+            BackToMain.Click += BackToMain_Click;
+            // 
+            // GroupLabel
+            // 
+            GroupLabel.AutoSize = true;
+            GroupLabel.Location = new Point(110, 127);
+            GroupLabel.Name = "GroupLabel";
+            GroupLabel.Size = new Size(40, 15);
+            GroupLabel.TabIndex = 9;
+            GroupLabel.Text = "Пусто";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(28, 62);
+            label2.Location = new Point(67, 51);
             label2.Name = "label2";
-            label2.Size = new Size(69, 15);
-            label2.TabIndex = 5;
-            label2.Text = "Должность";
+            label2.Size = new Size(37, 15);
+            label2.TabIndex = 10;
+            label2.Text = "ФИО:";
             // 
-            // label3
+            // label4
             // 
-            label3.AutoSize = true;
-            label3.Location = new Point(56, 115);
-            label3.Name = "label3";
-            label3.Size = new Size(41, 15);
-            label3.TabIndex = 6;
-            label3.Text = "Почта";
+            label4.AutoSize = true;
+            label4.Location = new Point(11, 91);
+            label4.Name = "label4";
+            label4.Size = new Size(93, 15);
+            label4.TabIndex = 11;
+            label4.Text = "Дата рождения:";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(61, 127);
+            label5.Name = "label5";
+            label5.Size = new Size(43, 15);
+            label5.TabIndex = 12;
+            label5.Text = "Отдел:";
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(32, 166);
+            label6.Name = "label6";
+            label6.Size = new Size(72, 15);
+            label6.TabIndex = 13;
+            label6.Text = "Должность:";
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(60, 209);
+            label7.Name = "label7";
+            label7.Size = new Size(44, 15);
+            label7.TabIndex = 14;
+            label7.Text = "Почта:";
             // 
             // Profile
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(541, 309);
+            BackColor = Color.LightGreen;
+            ClientSize = new Size(606, 309);
+            Controls.Add(label7);
+            Controls.Add(label6);
+            Controls.Add(label5);
+            Controls.Add(label4);
+            Controls.Add(label2);
+            Controls.Add(GroupLabel);
+            Controls.Add(BackToMain);
             Controls.Add(panel1);
             Controls.Add(UpdateUsers);
             Controls.Add(ButtonExitProf);
@@ -218,10 +277,15 @@
         private Panel panel1;
         private Button Updatebut;
         private TextBox mailTextBox;
-        private TextBox PostsTextBox;
         private TextBox birthdayTextBox;
         private Label label3;
-        private Label label2;
         private Label label1;
+        private Button BackToMain;
+        private Label GroupLabel;
+        private Label label2;
+        private Label label4;
+        private Label label5;
+        private Label label6;
+        private Label label7;
     }
 }

@@ -40,7 +40,7 @@
             comboBoxPeopleChat.FormattingEnabled = true;
             comboBoxPeopleChat.Location = new Point(44, 27);
             comboBoxPeopleChat.Name = "comboBoxPeopleChat";
-            comboBoxPeopleChat.Size = new Size(121, 23);
+            comboBoxPeopleChat.Size = new Size(203, 23);
             comboBoxPeopleChat.TabIndex = 0;
             // 
             // listBox1
@@ -83,6 +83,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.SkyBlue;
             ClientSize = new Size(475, 450);
             Controls.Add(ExitChatButton);
             Controls.Add(EnterChatButton);

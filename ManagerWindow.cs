@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace WorkerApp
 {
-    public partial class MainWindow : Form
+    public partial class ManagerWindow : Form
     {
-        public MainWindow()
+        public ManagerWindow()
         {
             InitializeComponent();
             ConfigureDataGridView();
@@ -46,6 +46,130 @@ namespace WorkerApp
         {
             await UpdateSelectedRowStatus("В процессе");
         } //Метод контекстного меню для изменения статуса задачи на "В процессе"
+
+        private void ClickPictureProfile_Click(object sender, EventArgs e)
+        {
+            Profile profile = new Profile();
+            profile.Show();
+            this.Hide();
+        } //Переход в профиль по картинке
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+            Profile profile = new Profile();
+            profile.Show();
+            this.Hide();
+        } //Переход в профиль по текстовой подсказке
+
+        private void ExitButtonMain_Click(object sender, EventArgs e)
+        {
+            Autorization autorization = new Autorization();
+            autorization.Show();
+            this.Close();
+        } //Выход в окно авторизации
+
+        private async void ChatClickManager_Click(object sender, EventArgs e)
+        {
+            SupabaseClient client = new SupabaseClient();
+            List<UsersObject> usersData = null;
+
+            bool success = await client.ComboboxUsers();
+            if (success)
+            {
+                usersData = AppState.UsersData;
+            }
+            else
+            {
+                MessageBox.Show("Ошибка загрузки пользователей");
+            }
+
+            if (usersData != null)
+            {
+                ChatForm chatForm = new ChatForm(usersData);
+                chatForm.Show();
+                this.Hide();
+            }
+            else
+            {
+                MessageBox.Show("Ошибка: Данные не загружены");
+            }
+        } //Переход в окно чата
+
+        private void WorkersManager_Click(object sender, EventArgs e)
+        {
+            TaskEmployee employee = new TaskEmployee();
+            employee.Show();
+            this.Hide();
+        } //Переход в окно сотрудники
+
+        private void ConfigureDataGridView() //Постройка конфигурации datagrid
+        {
+            dataGridView1.AutoGenerateColumns = false;
+            dataGridView1.Columns.Clear();
+
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn //Настройка столбцов
+            {
+                Name = "taskColumn",
+                DataPropertyName = "task",
+                HeaderText = "Задача",
+                ReadOnly = true,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
+                FillWeight = 80
+            });
+
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "deadlineColumn",
+                DataPropertyName = "deadline",
+                HeaderText = "Дедлайн",
+                ReadOnly = true,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
+                FillWeight = 20
+            });
+
+            dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            dataGridView1.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+        }
+        private async void LoadUserWorkerData() //Загрузка данных в datagrid
+        {
+            try
+            {
+                // Загрузка данных
+                bool success = await AppState.Supabase.ManagerInform();
+
+                if (!success || AppState.infoManager == null)
+                {
+                    MessageBox.Show("Ошибка загрузки данных");
+                    return;
+                }
+
+                // Фильтрация данных
+                var userData = AppState.infoManager
+                    .Where(w => w.department == AppState.CurrentUser.posts)
+                    .ToList();
+
+                var table = new DataTable();
+                table.Columns.Add("task", typeof(string));
+                table.Columns.Add("deadline", typeof(string));
+
+                foreach (var manager in userData)
+                {
+                    table.Rows.Add(manager.task, manager.deadline);
+                }
+
+                dataGridView1.DataSource = table;
+
+                dataGridView1.Refresh();
+
+                dataGridView1.ClearSelection();
+                dataGridView1.FirstDisplayedScrollingRowIndex = 0;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка: {ex.Message}");
+            }
+        }
+
         private async Task UpdateSelectedRowStatus(string newStatus)
         {
             if (dataGridView1.CurrentRow != null)
@@ -55,17 +179,18 @@ namespace WorkerApp
                     int selectedRowIndex = dataGridView1.CurrentRow.Index;
 
                     // Получаем данные из выбранной строки DataGridView
-                    var salary = dataGridView1.Rows[selectedRowIndex].Cells["salaryColumn"].Value?.ToString();
-                    var worknum = dataGridView1.Rows[selectedRowIndex].Cells["worknumColumn"].Value?.ToString();
+                    var task = dataGridView1.Rows[selectedRowIndex].Cells["taskColumn"].Value?.ToString();
+                    var deadline = dataGridView1.Rows[selectedRowIndex].Cells["deadlineColumn"].Value?.ToString();
 
-                    var selectedWork = AppState.infowork.FirstOrDefault(w =>
-                        w.salary == salary &&
-                        w.worknum == worknum &&
-                        w.user_id == AppState.CurrentUser.id);
+                    // Находим соответствующую запись в AppState.infoManager по данным
+                    var selectedWork = AppState.infoManager.FirstOrDefault(w =>
+                        w.task == task &&
+                        w.deadline == deadline);
 
                     if (selectedWork != null)
                     {
-                        bool success = await AppState.Supabase.UpdateStatusTask(selectedWork.id, newStatus);
+                        // Обновление статуса в Supabase
+                        bool success = await AppState.Supabase.UpdateStatusTaskManager(selectedWork.id, newStatus);
 
                         if (success)
                         {
@@ -92,128 +217,5 @@ namespace WorkerApp
                 MessageBox.Show("Пожалуйста, выберите строку");
             }
         } //Метод обновления статуса
-        private void ClickPictureProfile_Click(object sender, EventArgs e) //Кнопка перехода на форму профиля
-        {
-            Profile profile = new Profile();
-            profile.Show();
-            this.Hide();
-        }
-
-        private void OtzClick_Click(object sender, EventArgs e) //Кнопка перехода на форму "Отчёт"
-        {
-            Feedback feedback = new Feedback();
-            feedback.Show();
-            this.Hide();
-        }
-
-        private async void ChatClick_Click(object sender, EventArgs e) //Кнопка перехода на форму чата, с подгрузкой данных в combobox
-        {
-            SupabaseClient client = new SupabaseClient();
-            List<UsersObject> usersData = null;
-
-            bool success = await client.ComboboxUsers();
-            if (success)
-            {
-                usersData = AppState.UsersData;
-            }
-            else
-            {
-                MessageBox.Show("Ошибка загрузки пользователей");
-            }
-
-            if (usersData != null)
-            {
-                ChatForm chatForm = new ChatForm(usersData);
-                chatForm.Show();
-                this.Hide();
-            }
-            else
-            {
-                MessageBox.Show("Ошибка: Данные не загружены");
-            }
-        }
-
-        private void ConfigureDataGridView() //Постройка конфигурации datagrid
-        {
-            dataGridView1.AutoGenerateColumns = false;
-            dataGridView1.Columns.Clear();
-
-            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn //Настройка столбцов
-            {
-                Name = "salaryColumn",
-                DataPropertyName = "salary",
-                HeaderText = "Задача",
-                ReadOnly = true,
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
-                FillWeight = 80
-            });
-
-            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                Name = "worknumColumn",
-                DataPropertyName = "worknum",
-                HeaderText = "Дедлайн",
-                ReadOnly = true,
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
-                FillWeight = 20
-            });
-
-            dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-            dataGridView1.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
-        }
-
-        private async void LoadUserWorkerData() //Загрузка данных в datagrid
-        {
-            try
-            {
-                // Загрузка данных
-                bool success = await AppState.Supabase.WorkerInform();
-
-                if (!success || AppState.infowork == null)
-                {
-                    MessageBox.Show("Ошибка загрузки данных");
-                    return;
-                }
-
-                // Фильтрация данных
-                var userData = AppState.infowork
-                    .Where(w => w.user_id == AppState.CurrentUser.id)
-                    .ToList();
-
-                var table = new DataTable();
-                table.Columns.Add("salary", typeof(string));
-                table.Columns.Add("worknum", typeof(string));
-
-                foreach (var worker in userData)
-                {
-                    table.Rows.Add(worker.salary, worker.worknum);
-                }
-
-                dataGridView1.DataSource = table;
-
-                dataGridView1.Refresh();
-
-                dataGridView1.ClearSelection();
-                dataGridView1.FirstDisplayedScrollingRowIndex = 0;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Ошибка: {ex.Message}");
-            }
-        }
-
-        private void ExitButtonMain_Click(object sender, EventArgs e) //Кнопка выхода
-        {
-            Autorization autorization = new Autorization();
-            autorization.Show();
-            this.Close();
-        }
-
-        private void label2_Click(object sender, EventArgs e) //Переход в профиль по текстовой подсказке
-        {
-            Profile profile = new Profile();
-            profile.Show();
-            this.Hide();
-        }
     }
 }

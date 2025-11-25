@@ -30,7 +30,7 @@ namespace WorkerApp
                 var fromAddress = new MailAddress("RUshan.Bog@mail.ru", "Rarix Corp");
                 var toAddress = new MailAddress("RUshan.Bog@mail.ru");
                 string fio = FeedbackFIO.Text;
-                const string subject = "Отзыв сотрудника";
+                const string subject = "Отчёт сотрудника";
                 string text = richTextFeedback.Text;
                 string body = $"Я {fio}, {text}";
                 var smtp = new SmtpClient
@@ -40,7 +40,7 @@ namespace WorkerApp
                     EnableSsl = true,
                     DeliveryMethod = SmtpDeliveryMethod.Network,
                     UseDefaultCredentials = false,
-                    Credentials = new NetworkCredential("RUshan.Bog@mail.ru", "um9wgq8cL2ecpiZrDy4U"),
+                    Credentials = new NetworkCredential("RUshan.Bog@mail.ru", "jf46AKxoCDKENkJe4Ife"),
                 };
                 using (var message = new MailMessage(fromAddress, toAddress)
                 {

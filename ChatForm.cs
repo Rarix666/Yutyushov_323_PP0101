@@ -35,9 +35,9 @@ namespace WorkerApp
                 return;
             }
 
-            var displayList = usersData.Select(u => new { Display = u.login, Value = u.id }).ToList(); // Временный список для привязки данных
+            var displayList = usersData.Select(u => new { Display = u.name, Value = u.id }).ToList(); // Временный список для привязки данных
 
-            //Заполнение данных в combobox в правильном порядке, в соответсвии с id и login
+            //Заполнение данных в combobox в правильном порядке
             comboBoxPeopleChat.DataSource = null;
             comboBoxPeopleChat.DataSource = displayList;
             comboBoxPeopleChat.DisplayMember = "Display";
@@ -122,9 +122,24 @@ namespace WorkerApp
 
         private void ExitChatButton_Click(object sender, EventArgs e) //Выход из формы чата
         {
-            MainWindow main = new MainWindow();
-            main.Show();
-            this.Close();
+            if (AppState.CurrentUser.role == "worker")
+            {
+                MainWindow main = new MainWindow();
+                main.Show();
+                this.Close();
+            }
+            if (AppState.CurrentUser.role == "manager")
+            {
+                ManagerWindow manager = new ManagerWindow();
+                manager.Show();
+                this.Close();
+            }
+            if (AppState.CurrentUser.role == "Директор")
+            {
+                DirectorWindow director = new DirectorWindow();
+                director.Show();
+                this.Close();
+            }
         }
     }
 }
