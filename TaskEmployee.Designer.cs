@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TaskEmployee));
             label1 = new Label();
             comboboxEmployee = new ComboBox();
             label7 = new Label();
@@ -255,7 +256,9 @@
             Controls.Add(label2);
             Controls.Add(comboboxEmployee);
             Controls.Add(label1);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "TaskEmployee";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Сотрудники";
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);

@@ -28,9 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AdminForm));
             CPasswordBox = new TextBox();
             CreateUsers = new Button();
-            DeleteUsers = new Button();
             label1 = new Label();
             CComboLogin = new ComboBox();
             CFIOBox = new TextBox();
@@ -43,35 +44,28 @@
             COtdelBox = new ComboBox();
             label6 = new Label();
             dataGridView1 = new DataGridView();
+            contextMenuStrip1 = new ContextMenuStrip(components);
+            UpdateUserButton = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
             // CPasswordBox
             // 
             CPasswordBox.Location = new Point(67, 187);
+            CPasswordBox.MaxLength = 30;
             CPasswordBox.Name = "CPasswordBox";
             CPasswordBox.Size = new Size(181, 23);
             CPasswordBox.TabIndex = 1;
             // 
             // CreateUsers
             // 
-            CreateUsers.Location = new Point(79, 271);
+            CreateUsers.Location = new Point(87, 260);
             CreateUsers.Name = "CreateUsers";
             CreateUsers.Size = new Size(75, 23);
             CreateUsers.TabIndex = 2;
-            CreateUsers.Text = "Сохранить";
+            CreateUsers.Text = "Добавить";
             CreateUsers.UseVisualStyleBackColor = true;
             CreateUsers.Click += CreateUsers_Click;
-            // 
-            // DeleteUsers
-            // 
-            DeleteUsers.Location = new Point(160, 271);
-            DeleteUsers.Name = "DeleteUsers";
-            DeleteUsers.Size = new Size(75, 23);
-            DeleteUsers.TabIndex = 3;
-            DeleteUsers.Text = "Удалить";
-            DeleteUsers.UseVisualStyleBackColor = true;
-            DeleteUsers.Click += DeleteUsers_Click;
             // 
             // label1
             // 
@@ -87,6 +81,7 @@
             // 
             CComboLogin.FormattingEnabled = true;
             CComboLogin.Location = new Point(67, 67);
+            CComboLogin.MaxLength = 20;
             CComboLogin.Name = "CComboLogin";
             CComboLogin.Size = new Size(181, 23);
             CComboLogin.TabIndex = 5;
@@ -94,15 +89,18 @@
             // CFIOBox
             // 
             CFIOBox.Location = new Point(67, 105);
+            CFIOBox.MaxLength = 40;
             CFIOBox.Name = "CFIOBox";
             CFIOBox.Size = new Size(181, 23);
             CFIOBox.TabIndex = 6;
             // 
             // CComboRole
             // 
+            CComboRole.DropDownStyle = ComboBoxStyle.DropDownList;
             CComboRole.FormattingEnabled = true;
-            CComboRole.Items.AddRange(new object[] { "worker", "manager" });
+            CComboRole.Items.AddRange(new object[] { "Тестировщик", "Дизайнер", "Сотрудник", "Программист", "Менеджер" });
             CComboRole.Location = new Point(87, 145);
+            CComboRole.MaxLength = 30;
             CComboRole.Name = "CComboRole";
             CComboRole.Size = new Size(161, 23);
             CComboRole.TabIndex = 7;
@@ -155,6 +153,7 @@
             // 
             // COtdelBox
             // 
+            COtdelBox.DropDownStyle = ComboBoxStyle.DropDownList;
             COtdelBox.FormattingEnabled = true;
             COtdelBox.Location = new Point(67, 231);
             COtdelBox.Name = "COtdelBox";
@@ -178,12 +177,28 @@
             dataGridView1.Size = new Size(473, 203);
             dataGridView1.TabIndex = 15;
             // 
+            // contextMenuStrip1
+            // 
+            contextMenuStrip1.Name = "contextMenuStrip1";
+            contextMenuStrip1.Size = new Size(61, 4);
+            // 
+            // UpdateUserButton
+            // 
+            UpdateUserButton.Location = new Point(173, 260);
+            UpdateUserButton.Name = "UpdateUserButton";
+            UpdateUserButton.Size = new Size(75, 23);
+            UpdateUserButton.TabIndex = 16;
+            UpdateUserButton.Text = "Обновить";
+            UpdateUserButton.UseVisualStyleBackColor = true;
+            UpdateUserButton.Click += UpdateUserButton_Click;
+            // 
             // AdminForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.GreenYellow;
             ClientSize = new Size(775, 319);
+            Controls.Add(UpdateUserButton);
             Controls.Add(dataGridView1);
             Controls.Add(label6);
             Controls.Add(COtdelBox);
@@ -196,11 +211,12 @@
             Controls.Add(CFIOBox);
             Controls.Add(CComboLogin);
             Controls.Add(label1);
-            Controls.Add(DeleteUsers);
             Controls.Add(CreateUsers);
             Controls.Add(CPasswordBox);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "AdminForm";
-            Text = "AdminForm";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Администратор";
             Load += AdminForm_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
@@ -211,7 +227,6 @@
 
         private TextBox CPasswordBox;
         private Button CreateUsers;
-        private Button DeleteUsers;
         private Label label1;
         private ComboBox CComboLogin;
         private TextBox CFIOBox;
@@ -224,5 +239,7 @@
         private ComboBox COtdelBox;
         private Label label6;
         private DataGridView dataGridView1;
+        private ContextMenuStrip contextMenuStrip1;
+        private Button UpdateUserButton;
     }
 }

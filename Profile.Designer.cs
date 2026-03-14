@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Profile));
             FIOLabel = new Label();
             BirthdayLabel = new Label();
             PostLabel = new Label();
@@ -256,7 +257,9 @@
             Controls.Add(PostLabel);
             Controls.Add(BirthdayLabel);
             Controls.Add(FIOLabel);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Profile";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Профиль";
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             panel1.ResumeLayout(false);

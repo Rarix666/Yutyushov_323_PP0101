@@ -32,6 +32,7 @@ namespace WorkerApp
             if (usersData == null || usersData.Count == 0) //Проверка, загрузились ли пользователи в combobox
             {
                 MessageBox.Show("Ошибка отображения пользователей");
+                File.AppendAllText("logerWorkerApp.txt", $"{DateTime.Now} |ERROR| - Ошибка загрузки окна выбора чата\n");
                 return;
             }
 
@@ -75,6 +76,7 @@ namespace WorkerApp
             catch (Exception ex)
             {
                 MessageBox.Show($"Ошибка загрузки сообщений: {ex.Message}");
+                File.AppendAllText("logerWorkerApp.txt", $"{DateTime.Now} |ERROR| - Ошибка загрузки сообщений: {ex}\n");
             }
         }
 
@@ -122,13 +124,7 @@ namespace WorkerApp
 
         private void ExitChatButton_Click(object sender, EventArgs e) //Выход из формы чата
         {
-            if (AppState.CurrentUser.role == "worker")
-            {
-                MainWindow main = new MainWindow();
-                main.Show();
-                this.Close();
-            }
-            if (AppState.CurrentUser.role == "manager")
+            if (AppState.CurrentUser.role == "Менеджер")
             {
                 ManagerWindow manager = new ManagerWindow();
                 manager.Show();
@@ -138,6 +134,12 @@ namespace WorkerApp
             {
                 DirectorWindow director = new DirectorWindow();
                 director.Show();
+                this.Close();
+            }
+            if (AppState.CurrentUser.role != "Директор" && AppState.CurrentUser.role != "Менеджер")
+            {
+                MainWindow main = new MainWindow();
+                main.Show();
                 this.Close();
             }
         }

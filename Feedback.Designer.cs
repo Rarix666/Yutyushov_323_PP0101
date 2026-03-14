@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Feedback));
             FeedbackLabel = new Label();
             FeedbackFIO = new TextBox();
             richTextFeedback = new RichTextBox();
@@ -40,11 +41,11 @@
             // 
             FeedbackLabel.AutoSize = true;
             FeedbackLabel.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            FeedbackLabel.Location = new Point(171, 27);
+            FeedbackLabel.Location = new Point(149, 28);
             FeedbackLabel.Name = "FeedbackLabel";
-            FeedbackLabel.Size = new Size(73, 30);
+            FeedbackLabel.Size = new Size(121, 30);
             FeedbackLabel.TabIndex = 0;
-            FeedbackLabel.Text = "Отчёт";
+            FeedbackLabel.Text = "Заявление";
             // 
             // FeedbackFIO
             // 
@@ -102,8 +103,10 @@
             Controls.Add(richTextFeedback);
             Controls.Add(FeedbackFIO);
             Controls.Add(FeedbackLabel);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Feedback";
-            Text = "Отчёт";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Заявления";
             ResumeLayout(false);
             PerformLayout();
         }

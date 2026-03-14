@@ -123,6 +123,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.PapayaWhip;
             ClientSize = new Size(604, 363);
             Controls.Add(label3);
             Controls.Add(ExitButtonMain);
@@ -131,7 +132,9 @@
             Controls.Add(label1);
             Controls.Add(dataGridView1);
             Controls.Add(ClickPictureProfile);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "ManagerWindow";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Главное окно";
             ((System.ComponentModel.ISupportInitialize)ClickPictureProfile).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();

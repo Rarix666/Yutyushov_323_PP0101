@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TaskDepartment));
             label1 = new Label();
             NameDepartmentTextBox = new TextBox();
             CreateDepartmentButton = new Button();
@@ -235,7 +236,9 @@
             Controls.Add(CreateDepartmentButton);
             Controls.Add(NameDepartmentTextBox);
             Controls.Add(label1);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "TaskDepartment";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Управление отделами";
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();

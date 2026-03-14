@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChatForm));
             comboBoxPeopleChat = new ComboBox();
             listBox1 = new ListBox();
             chatTextBox = new TextBox();
@@ -90,7 +91,9 @@
             Controls.Add(chatTextBox);
             Controls.Add(listBox1);
             Controls.Add(comboBoxPeopleChat);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "ChatForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Чат";
             ResumeLayout(false);
             PerformLayout();

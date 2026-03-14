@@ -52,17 +52,18 @@ namespace WorkerApp
                     smtp.Send(message);
                 }
                 MessageBox.Show("Сообщение доставлено");
+                File.AppendAllText("logerWorkerApp.txt", $"{DateTime.Now} |INFO| - Отправлено заявление\n");
                 MainWindow main = new MainWindow();
                 main.Show();
                 this.Hide();
             }
-        }
+        } //Отправка заявления
 
         private void ExitFeedbeckButton_Click(object sender, EventArgs e)
         {
             MainWindow main = new MainWindow();
             main.Show();
             this.Close();
-        }
+        } //выход
     }
 }

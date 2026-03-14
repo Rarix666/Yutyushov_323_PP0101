@@ -66,7 +66,7 @@ namespace WorkerApp
             catch (Exception ex)
             {
                 MessageBox.Show($"Ошибка парсинга: {ex.Message}");
-                File.AppendAllText("logerWorkerApp.txt", $"{DateTime.Now} |ERROR| - Ошибка парсинга ComboboxUsers {ex}\n");
+                File.AppendAllText("logerWorkerApp.txt", $"{DateTime.Now} |ERROR| - Ошибка парсинга ComboboxUsers: {ex}\n");
                 return false;
             }
         }
@@ -137,6 +137,7 @@ namespace WorkerApp
             catch (Exception ex)
             {
                 MessageBox.Show($"Ошибка парсинга: {ex.Message}");
+                File.AppendAllText("logerWorkerApp.txt", $"{DateTime.Now} |ERROR| - Ошибка парсинга при заполнении окна сотрудника: {ex}\n");
                 return false;
             }
         }
@@ -154,6 +155,7 @@ namespace WorkerApp
             catch (Exception ex)
             {
                 MessageBox.Show($"Ошибка парсинга: {ex.Message}");
+                File.AppendAllText("logerWorkerApp.txt", $"{DateTime.Now} |ERROR| - Ошибка парсинга при заполнении окна менеджера: {ex}\n");
                 return false;
             }
         }
@@ -171,6 +173,7 @@ namespace WorkerApp
             catch (Exception ex)
             {
                 MessageBox.Show($"Ошибка парсинга: {ex.Message}");
+                File.AppendAllText("logerWorkerApp.txt", $"{DateTime.Now} |ERROR| - Ошибка парсинга при заполнении окна Администратора: {ex}\n");
                 return false;
             }
         }
@@ -181,7 +184,8 @@ namespace WorkerApp
             var request = CreateRequest("rest/v1/rpc/create_users", Method.Post);
             request.AddJsonBody(param);
             var response = await client.ExecuteAsync(request);
-            return response.StatusCode == System.Net.HttpStatusCode.NoContent;
+            return response.StatusCode == System.Net.HttpStatusCode.OK &&
+            response.Content == "true";
         }
 
         public async Task<bool> CreateTaskEmployee(int cuser_id, string csalary, string cworknum) //Метод добавления данных о задаче для сотрудников
@@ -215,6 +219,14 @@ namespace WorkerApp
         {
             var param = new { ids, ubirthday, umail };
             var request = CreateRequest("rest/v1/rpc/update_user", Method.Post);
+            request.AddJsonBody(param);
+            var response = await client.ExecuteAsync(request);
+            return response.StatusCode == System.Net.HttpStatusCode.NoContent;
+        }
+        public async Task<bool> UpdateUserAdmin(string ulogin, string uname, string upassword, string urole, string uposts) //Метод обновления данных работающий по принципу метода авторизации
+        {
+            var param = new { ulogin, uname, urole, upassword, uposts };
+            var request = CreateRequest("rest/v1/rpc/update_user_admin", Method.Post);
             request.AddJsonBody(param);
             var response = await client.ExecuteAsync(request);
             return response.StatusCode == System.Net.HttpStatusCode.NoContent;

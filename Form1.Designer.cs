@@ -28,17 +28,23 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Autorization));
             LoginTextBox = new TextBox();
             PasswordTextBox = new TextBox();
             EnterAutorizButton = new Button();
             Autoriz = new Label();
             TipLogin = new Label();
             TipPassword = new Label();
+            EyeOpen = new PictureBox();
+            EyeClose = new PictureBox();
+            ((System.ComponentModel.ISupportInitialize)EyeOpen).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)EyeClose).BeginInit();
             SuspendLayout();
             // 
             // LoginTextBox
             // 
             LoginTextBox.Location = new Point(259, 128);
+            LoginTextBox.MaxLength = 40;
             LoginTextBox.Name = "LoginTextBox";
             LoginTextBox.Size = new Size(251, 23);
             LoginTextBox.TabIndex = 0;
@@ -46,7 +52,9 @@
             // PasswordTextBox
             // 
             PasswordTextBox.Location = new Point(259, 189);
+            PasswordTextBox.MaxLength = 40;
             PasswordTextBox.Name = "PasswordTextBox";
+            PasswordTextBox.PasswordChar = '*';
             PasswordTextBox.Size = new Size(251, 23);
             PasswordTextBox.TabIndex = 1;
             // 
@@ -88,20 +96,52 @@
             TipPassword.TabIndex = 5;
             TipPassword.Text = "Пароль";
             // 
+            // EyeOpen
+            // 
+            EyeOpen.BackColor = Color.MediumSlateBlue;
+            EyeOpen.BackgroundImage = (Image)resources.GetObject("EyeOpen.BackgroundImage");
+            EyeOpen.BackgroundImageLayout = ImageLayout.Stretch;
+            EyeOpen.Location = new Point(519, 183);
+            EyeOpen.Name = "EyeOpen";
+            EyeOpen.Size = new Size(28, 29);
+            EyeOpen.TabIndex = 6;
+            EyeOpen.TabStop = false;
+            EyeOpen.Visible = false;
+            EyeOpen.Click += EyeOpen_Click;
+            // 
+            // EyeClose
+            // 
+            EyeClose.BackColor = Color.MediumSlateBlue;
+            EyeClose.BackgroundImage = (Image)resources.GetObject("EyeClose.BackgroundImage");
+            EyeClose.BackgroundImageLayout = ImageLayout.Stretch;
+            EyeClose.Location = new Point(519, 183);
+            EyeClose.Name = "EyeClose";
+            EyeClose.Size = new Size(28, 29);
+            EyeClose.TabIndex = 7;
+            EyeClose.TabStop = false;
+            EyeClose.Click += EyeClose_Click;
+            // 
             // Autorization
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.MediumSlateBlue;
             ClientSize = new Size(743, 421);
+            Controls.Add(EyeOpen);
             Controls.Add(TipPassword);
             Controls.Add(TipLogin);
             Controls.Add(Autoriz);
             Controls.Add(EnterAutorizButton);
             Controls.Add(PasswordTextBox);
             Controls.Add(LoginTextBox);
+            Controls.Add(EyeClose);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Autorization";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Авторизация";
+            FormClosing += Autorization_FormClosing;
+            ((System.ComponentModel.ISupportInitialize)EyeOpen).EndInit();
+            ((System.ComponentModel.ISupportInitialize)EyeClose).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -114,5 +154,7 @@
         private Label Autoriz;
         private Label TipLogin;
         private Label TipPassword;
+        private PictureBox EyeOpen;
+        private PictureBox EyeClose;
     }
 }

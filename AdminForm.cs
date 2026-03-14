@@ -8,6 +8,8 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolTip;
 
 namespace WorkerApp
 {
@@ -18,7 +20,74 @@ namespace WorkerApp
             InitializeComponent();
             ConfigureDataGridView();
             LoadUserWorkerData();
+            ContextMenuStrip contextMenu = new ContextMenuStrip();
+
+            // Пункты меню
+            ToolStripMenuItem deleteItem = new ToolStripMenuItem("Удалить");
+
+            // Обработчики событий
+            deleteItem.Click += deleteMenuItem_Click;
+
+            // Элементы в меню
+            contextMenu.Items.AddRange(new ToolStripItem[]
+            {
+                deleteItem
+            });
+
+            // Привязка контекстного меню
+            dataGridView1.ContextMenuStrip = contextMenu;
         }
+
+        private async void deleteMenuItem_Click(object sender, EventArgs e)
+        {
+            await DeleteSelectedRowUser();
+        } //Метод контекстного меню для удаления пользователя
+
+        private async Task DeleteSelectedRowUser()
+        {
+            if (dataGridView1.CurrentRow != null)
+            {
+                try
+                {
+                    int selectedRowIndex = dataGridView1.CurrentRow.Index;
+
+                    var dlogin = dataGridView1.Rows[selectedRowIndex].Cells["loginColumn"].Value?.ToString();
+
+                    var selectedUser = AppState.infoAdmin.FirstOrDefault(w =>
+                        w.login == dlogin);
+
+                    if (selectedUser != null)
+                    {
+                        bool success = await AppState.Supabase.DeleteUser(selectedUser.login);
+
+                        if (success)
+                        {
+                            MessageBox.Show($"Пользователь успешно удалён");
+                            File.AppendAllText("logerWorkerApp.txt", $"{DateTime.Now} |INFO| - Администратор {AppState.CurrentUser.name} удалил пользователя с логином: {dlogin}\n");
+                            LoadUserWorkerData();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Ошибка при удалении пользователя");
+                            File.AppendAllText("logerWorkerApp.txt", $"{DateTime.Now} |WARN| - Ошибка при удалении пользователя\n");
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Не удалось найти пользователя");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ошибка: {ex.Message}");
+                    File.AppendAllText("logerWorkerApp.txt", $"{DateTime.Now} |WARN| - Ошибка блока администратора при удалении: {ex}\n");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Пожалуйста, выберите строку");
+            }
+        } //Метод удаления пользователя
 
         private async void CreateUsers_Click(object sender, EventArgs e) //Кнопка добавления пользователей
         {
@@ -36,37 +105,14 @@ namespace WorkerApp
             if (result)
             {
                 MessageBox.Show("Пользователь успешно добавлен!");
-                File.AppendAllText("logerWorkerApp.txt", $"{DateTime.Now} |INFO| - Администратор добавил пользователя с данными: {clogin}, {cpassword}, {cname}, {crole}, {cposts}\n");
-                LoadUserWorkerData();
-                ClearBox();
-            }
-            else 
-            {
-                MessageBox.Show("Такой пользователь уже существует");
-                File.AppendAllText("logerWorkerApp.txt", $"{DateTime.Now} |WARN| - Ошибка при добавлении пользователя\n");
-            }
-        }
-
-        private async void DeleteUsers_Click(object sender, EventArgs e) //Кнопка удаления пользователей
-        {
-            string dlogin = CComboLogin.Text;
-            if (CComboLogin.Text == "")
-            {
-                MessageBox.Show("Заполните поле логина!");
-                return;
-            }
-            bool result = await AppState.Supabase.DeleteUser(dlogin);
-            if (result)
-            {
-                MessageBox.Show("Пользователь успешно удалён!");
-                File.AppendAllText("logerWorkerApp.txt", $"{DateTime.Now} |INFO| - Администратор удалил пользователя с логином: {dlogin}\n");
+                File.AppendAllText("logerWorkerApp.txt", $"{DateTime.Now} |INFO| - Администратор {AppState.CurrentUser.name} добавил пользователя с данными: {clogin}, {cpassword}, {cname}, {crole}, {cposts}\n");
                 LoadUserWorkerData();
                 ClearBox();
             }
             else
             {
-                MessageBox.Show("Ошибка при удалении пользователя");
-                File.AppendAllText("logerWorkerApp.txt", $"{DateTime.Now} |WARN| - Ошибка при удалении пользователя\n");
+                MessageBox.Show("Такой пользователь уже существует");
+                File.AppendAllText("logerWorkerApp.txt", $"{DateTime.Now} |WARN| - Ошибка при добавлении пользователя\n");
             }
         }
 
@@ -77,7 +123,7 @@ namespace WorkerApp
             CComboRole.Text = "";
             CPasswordBox.Text = "";
             COtdelBox.Text = "";
-        }
+        } //Метод очищения полей
 
         private async void AdminForm_Load(object sender, EventArgs e) //Добавление данных в combobox для облегчения управления пользователями
         {
@@ -258,14 +304,42 @@ namespace WorkerApp
             catch (Exception ex)
             {
                 MessageBox.Show($"Ошибка: {ex.Message}");
+                File.AppendAllText("logerWorkerApp.txt", $"{DateTime.Now} |ERROR| - Ошибка блока администрации: {ex}\n");
             }
         }
 
         private void ExitAdminButton_Click(object sender, EventArgs e) //Выйход из аккаунта
         {
+            File.AppendAllText("logerWorkerApp.txt", $"{DateTime.Now} |INFO| - Администратор {AppState.CurrentUser.name} вышел из аккаунта\n");
             Autorization autorization = new Autorization();
             autorization.Show();
             this.Close();
         }
+
+        private async void UpdateUserButton_Click(object sender, EventArgs e)
+        {
+            string ulogin = CComboLogin.Text;
+            string uname = CFIOBox.Text;
+            string upassword = CPasswordBox.Text;
+            string urole = CComboRole.Text; 
+            string uposts = COtdelBox.Text;
+            if (ulogin == "" || uname == "" || upassword == "" || urole == "" || uposts == "")
+            {
+                MessageBox.Show("Заполните все поля!");
+                return;
+            }
+            bool result = await AppState.Supabase.UpdateUserAdmin(ulogin, uname, upassword, urole, uposts);
+            if (result)
+            {
+                MessageBox.Show($"Данные успешно пользователя {ulogin} обновлены");
+                File.AppendAllText("logerWorkerApp.txt", $"{DateTime.Now} |INFO| - Администратор {AppState.CurrentUser.name} обновил данные пользователя {ulogin}\n");
+                ClearBox();
+                LoadUserWorkerData();
+            }
+            else
+            {
+                MessageBox.Show("Ошибка обновления данных");
+            }
+        } //Обновление данных пользователя
     }
 }

@@ -183,6 +183,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.LightGreen;
             ClientSize = new Size(498, 274);
             Controls.Add(PasswordAdminLabel);
             Controls.Add(FIOAdminLabel);
@@ -198,7 +199,9 @@
             Controls.Add(ExitButtonMain);
             Controls.Add(ChatClickDirector);
             Controls.Add(ClickPictureProfile);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "DirectorWindow";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Главное окно";
             Load += DirectorWindow_Load;
             ((System.ComponentModel.ISupportInitialize)ClickPictureProfile).EndInit();

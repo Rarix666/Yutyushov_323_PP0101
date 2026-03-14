@@ -59,16 +59,16 @@
             OtzClick.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 204);
             OtzClick.Location = new Point(168, 12);
             OtzClick.Name = "OtzClick";
-            OtzClick.Size = new Size(81, 32);
+            OtzClick.Size = new Size(138, 32);
             OtzClick.TabIndex = 1;
-            OtzClick.Text = "Отчёт";
+            OtzClick.Text = "Заявление";
             OtzClick.Click += OtzClick_Click;
             // 
             // ChatClick
             // 
             ChatClick.AutoSize = true;
             ChatClick.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            ChatClick.Location = new Point(288, 12);
+            ChatClick.Location = new Point(321, 12);
             ChatClick.Name = "ChatClick";
             ChatClick.Size = new Size(55, 32);
             ChatClick.TabIndex = 2;
@@ -117,12 +117,13 @@
             // contextMenuStrip1
             // 
             contextMenuStrip1.Name = "contextMenuStrip1";
-            contextMenuStrip1.Size = new Size(181, 26);
+            contextMenuStrip1.Size = new Size(61, 4);
             // 
             // MainWindow
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.LightSkyBlue;
             ClientSize = new Size(483, 387);
             Controls.Add(label2);
             Controls.Add(ExitButtonMain);
@@ -131,7 +132,9 @@
             Controls.Add(ChatClick);
             Controls.Add(OtzClick);
             Controls.Add(ClickPictureProfile);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "MainWindow";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Главное окно";
             ((System.ComponentModel.ISupportInitialize)ClickPictureProfile).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
