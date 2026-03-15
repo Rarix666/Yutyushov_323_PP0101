@@ -35,20 +35,28 @@ namespace WorkerApp
 
         public async Task<bool> AuthenticateUser(string login, string password) //Авторизация
         {
-            var request = CreateRequest("/rest/v1/rpc/auth_user"); //Путь к функции 
-            request.AddJsonBody(new { login, password }); //Добавление тела запроса
-            var response = await client.ExecuteAsync(request); //Ответ от Supabase
-
-            var rawJson = JObject.Parse(response.Content); //Преобразование полученного необработанного json в JObject программы
-
-            if (rawJson["id"] != null && rawJson["id"].Type != JTokenType.Null)
+            try
             {
-                AppState.CurrentUser = rawJson.ToObject<UserData>(); //Создание пользователя
-                return true;
+                var request = CreateRequest("/rest/v1/rpc/auth_user"); //Путь к функции 
+                request.AddJsonBody(new { login, password }); //Добавление тела запроса
+                var response = await client.ExecuteAsync(request); //Ответ от Supabase
+
+                var rawJson = JObject.Parse(response.Content); //Преобразование полученного необработанного json в JObject программы
+
+                if (rawJson["id"] != null && rawJson["id"].Type != JTokenType.Null)
+                {
+                    AppState.CurrentUser = rawJson.ToObject<UserData>(); //Создание пользователя
+                    return true;
+                }
+                else
+                {
+                    File.AppendAllText("logerWorkerApp.txt", $"{DateTime.Now} |WARN| - Попытка авторизации с несуществующими данными\n");
+                    return false;
+                }
             }
-            else
+            catch (Exception ex) 
             {
-                File.AppendAllText("logerWorkerApp.txt", $"{DateTime.Now} |WARN| - Попытка авторизации с несуществующими данными\n");
+                File.AppendAllText("logerWorkerApp.txt", $"{DateTime.Now} |ERROR| - {ex} \n");
                 return false;
             }
         }

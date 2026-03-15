@@ -43,13 +43,16 @@ namespace WorkerApp
                 }
 
                 bool loginSuccess = await AppState.Supabase.AuthenticateUser(login, password);
+                File.AppendAllText("logerWorkerApp.txt", $"{DateTime.Now} |INFO| - Выполняется авторизация пользователя: {login}...\n");
                 if (loginSuccess)
                 {
+                    File.AppendAllText("logerWorkerApp.txt", $"{DateTime.Now} |INFO| - Выполнен вход пользователя: {login}...\n");
                     if (AppState.CurrentUser.role == "admin")
                     {
                         MessageBox.Show("Вы авторизованы как администратор");
                         EnterAutorizButton.Enabled = true;
                         File.AppendAllText("logerWorkerApp.txt", $"{DateTime.Now} |INFO| - Администратор {login} авторизовался в системе\n");
+                        File.AppendAllText("logerWorkerApp.txt", $"{DateTime.Now} |INFO| - Выполняется переход в панель Администратора\n");
                         AdminForm admin = new AdminForm();
                         admin.Show();
                         this.Hide();
@@ -59,6 +62,7 @@ namespace WorkerApp
                         MessageBox.Show("Вы авторизованы как менеджер");
                         EnterAutorizButton.Enabled = true;
                         File.AppendAllText("logerWorkerApp.txt", $"{DateTime.Now} |INFO| - Менеджер {login} авторизовался в системе\n");
+                        File.AppendAllText("logerWorkerApp.txt", $"{DateTime.Now} |INFO| - Выполняется переход в окно Менеджера\n");
                         ManagerWindow manager = new ManagerWindow();
                         manager.Show();
                         this.Hide();
@@ -68,6 +72,7 @@ namespace WorkerApp
                         MessageBox.Show("Вы авторизованы как директор");
                         EnterAutorizButton.Enabled = true;
                         File.AppendAllText("logerWorkerApp.txt", $"{DateTime.Now} |INFO| - Директор {login} авторизовался в системе\n");
+                        File.AppendAllText("logerWorkerApp.txt", $"{DateTime.Now} |INFO| - Выполняется переход в окно Директора\n");
                         DirectorWindow director = new DirectorWindow();
                         director.Show();
                         this.Hide();
@@ -77,6 +82,7 @@ namespace WorkerApp
                         MessageBox.Show("Вы авторизованы как сотрудник");
                         EnterAutorizButton.Enabled = true;
                         File.AppendAllText("logerWorkerApp.txt", $"{DateTime.Now} |INFO| - Сотрудник {login} авторизовался в системе\n");
+                        File.AppendAllText("logerWorkerApp.txt", $"{DateTime.Now} |INFO| - Выполняется переход в окно Сотрудника\n");
                         MainWindow main = new MainWindow();
                         main.Show();
                         this.Hide();
@@ -84,6 +90,8 @@ namespace WorkerApp
                 }
                 else
                 {
+                    File.AppendAllText("logerWorkerApp.txt", $"{DateTime.Now} |INFO| - Попытка авторизации пользователя {login} не удалась\n");
+                    File.AppendAllText("logerWorkerApp.txt", $"{DateTime.Now} |INFO| - Причина: Неверный логин или пароль\n");
                     MessageBox.Show("Данного пользователя не существует");
                     EnterAutorizButton.Enabled = true;
                 }
