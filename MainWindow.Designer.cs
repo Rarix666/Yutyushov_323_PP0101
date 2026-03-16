@@ -136,6 +136,7 @@
             Name = "MainWindow";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Главное окно";
+            FormClosing += MainWindow_FormClosing;
             ((System.ComponentModel.ISupportInitialize)ClickPictureProfile).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);

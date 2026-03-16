@@ -215,5 +215,10 @@ namespace WorkerApp
             profile.Show();
             this.Hide();
         }
+
+        private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }
