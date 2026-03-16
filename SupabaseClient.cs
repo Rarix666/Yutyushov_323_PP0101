@@ -37,7 +37,7 @@ namespace WorkerApp
         {
             try
             {
-                var request = CreateRequest("/rest/v1/rpc/auth_user"); //Путь к функции 
+                var request = CreateRequest("/rest/v1/rpc/auth_user");
                 request.AddJsonBody(new { login, password }); //Добавление тела запроса
                 var response = await client.ExecuteAsync(request); //Ответ от Supabase
 
@@ -50,7 +50,6 @@ namespace WorkerApp
                 }
                 else
                 {
-                    File.AppendAllText("logerWorkerApp.txt", $"{DateTime.Now} |WARN| - Попытка авторизации с несуществующими данными\n");
                     return false;
                 }
             }
@@ -73,7 +72,7 @@ namespace WorkerApp
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка парсинга: {ex.Message}");
+                MessageBox.Show($"Ошибка загрузки данных, проверьте подключение к интернету!");
                 File.AppendAllText("logerWorkerApp.txt", $"{DateTime.Now} |ERROR| - Ошибка парсинга ComboboxUsers: {ex}\n");
                 return false;
             }
@@ -91,7 +90,7 @@ namespace WorkerApp
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка парсинга: {ex.Message}");
+                MessageBox.Show($"Ошибка загрузки данных, проверьте подключение к интернету!");
                 File.AppendAllText("logerWorkerApp.txt", $"{DateTime.Now} |ERROR| - Ошибка парсинга ComboboxUsersDirector {ex}\n");
                 return false;
             }
@@ -109,7 +108,7 @@ namespace WorkerApp
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка парсинга: {ex.Message}");
+                MessageBox.Show($"Ошибка загрузки данных, проверьте подключение к интернету!");
                 File.AppendAllText("logerWorkerApp.txt", $"{DateTime.Now} |ERROR| - Ошибка парсинга ComboboxDepartment {ex}\n");
                 return false;
             }
@@ -134,17 +133,19 @@ namespace WorkerApp
 
         public async Task<bool> WorkerInform() //Метод необходимый для заполнения datagridview в главном окне сотрудников
         {
+            File.AppendAllText("logerWorkerApp.txt", $"{DateTime.Now} |INFO| - Начало загрузки данных в окне сотрудника\n");
             var request = CreateRequest("/rest/v1/rpc/workerinfo");
             var response = await client.ExecuteAsync(request);
             try
             {
                 var info = JsonConvert.DeserializeObject<List<InformationWorker>>(response.Content);
+                File.AppendAllText("logerWorkerApp.txt", $"{DateTime.Now} |INFO| - Задачи выведены в окно сотрудника\n");
                 AppState.infowork = info;
                 return true;
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка парсинга: {ex.Message}");
+                File.AppendAllText("logerWorkerApp.txt", $"{DateTime.Now} |WARN| - Ошибка загруки данных\n");
                 File.AppendAllText("logerWorkerApp.txt", $"{DateTime.Now} |ERROR| - Ошибка парсинга при заполнении окна сотрудника: {ex}\n");
                 return false;
             }

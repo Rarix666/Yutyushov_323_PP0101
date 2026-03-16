@@ -1,6 +1,8 @@
 using AutoUpdaterDotNET;
 using Microsoft.VisualBasic.Logging;
 using System.Diagnostics;
+using System.Net;
+using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -11,6 +13,7 @@ namespace WorkerApp
         public Autorization()
         {
             File.AppendAllText("logerWorkerApp.txt", $"{DateTime.Now} |INFO| - Приложение запущено. \n");
+            File.AppendAllText("logerWorkerApp.txt", $"{DateTime.Now} |INFO| - Версия приложения: {Assembly.GetEntryAssembly()?.GetName().Version?.ToString() ?? "Unkown"} \n");
             Stopwatch sw = Stopwatch.StartNew();
             sw.Start();
             InitializeComponent();
@@ -43,7 +46,11 @@ namespace WorkerApp
                 }
 
                 bool loginSuccess = await AppState.Supabase.AuthenticateUser(login, password);
-                File.AppendAllText("logerWorkerApp.txt", $"{DateTime.Now} |INFO| - Выполняется авторизация пользователя: {login}...\n");
+                string localIp = GetLocalIp();
+                string hostName = Environment.MachineName;
+                File.AppendAllText("logerWorkerApp.txt", $"{DateTime.Now} |INFO| - Выполняется авторизация пользователя: {login}\n" +
+                    $"IP: {localIp}\n" +
+                    $"Имя хоста: {hostName}\n");
                 if (loginSuccess)
                 {
                     File.AppendAllText("logerWorkerApp.txt", $"{DateTime.Now} |INFO| - Выполнен вход пользователя: {login}...\n");
@@ -131,6 +138,21 @@ namespace WorkerApp
 
             var pattern = @"^[\p{L}\p{Nd}\s\.\,\-\–\—\!\?\+\-\*\:\;\(\)\[\]\{\}""'`«»\/\\\+\=\%\&\#]+$";
             return Regex.IsMatch(text, pattern);
+        }
+        private static string GetLocalIp()
+        {
+            try
+            {
+                var hostName = Dns.GetHostName();
+                var hostEntry = Dns.GetHostEntry(hostName);
+                var ip = hostEntry.AddressList
+                    .FirstOrDefault(ip => ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
+                return ip?.ToString() ?? "Не найден IPv4";
+            }
+            catch (Exception ex)
+            {
+                return $"Ошибка получения IP: {ex.Message}";
+            }
         }
 
         private void Autorization_FormClosing(object sender, FormClosingEventArgs e)
