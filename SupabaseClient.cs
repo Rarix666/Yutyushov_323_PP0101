@@ -1,9 +1,11 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.VisualBasic.Logging;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -14,21 +16,23 @@ namespace WorkerApp
     public class SupabaseClient
     {
         private readonly RestClient client;
-        //URL БД Supabase
+        //URL
         private const string BaseURL = "https://mxyvgbsuiqovqzmemtfa.supabase.co";
-        //API ключ
-        private const string APIkey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im14eXZnYnN1aXFvdnF6bWVtdGZhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA4NDc0NjEsImV4cCI6MjA2NjQyMzQ2MX0.CHOjEuYT1V-A-N4QVZ-2FJ_Ev-PhVlphBdL5LpVRZkg";
-
+        private readonly string _apiKey;
         public SupabaseClient()
         {
-            client = new RestClient(BaseURL); //Инициализация клиента RestRequest
+            File.AppendAllText("logerWorkerApp.txt", $"{DateTime.Now} |INFO| - Supabase API-ключ успешно загружен \n");
+            File.AppendAllText("logerWorkerApp.txt", $"{DateTime.Now} |INFO| - Supabase URL успешно загружен\n");
+            File.AppendAllText("logerWorkerApp.txt", $"{DateTime.Now} |INFO| - Клиент Supabase успешно инициализирован\n");
+            client = new RestClient(BaseURL); 
+            _apiKey = Program.Configuration["APIkey"];
         }
 
         private RestRequest CreateRequest(string endpoint, Method method = Method.Post) //Структура запроса к Supabase
         {
             var request = new RestRequest(endpoint, method);
-            request.AddHeader("apikey", APIkey);
-            request.AddHeader("Authorization", $"Bearer {APIkey}");
+            request.AddHeader("apikey", _apiKey);
+            request.AddHeader("Authorization", $"Bearer {_apiKey}");
             request.AddHeader("Content-Type", "application/json");
             return request;
         }

@@ -1,4 +1,5 @@
 using AutoUpdaterDotNET;
+using Microsoft.Extensions.Configuration;
 using Microsoft.VisualBasic.Logging;
 using System.Diagnostics;
 using System.Net;
@@ -13,7 +14,7 @@ namespace WorkerApp
         public Autorization()
         {
             File.AppendAllText("logerWorkerApp.txt", $"{DateTime.Now} |INFO| - Приложение запущено. \n");
-            File.AppendAllText("logerWorkerApp.txt", $"{DateTime.Now} |INFO| - Версия приложения: {Assembly.GetEntryAssembly()?.GetName().Version?.ToString() ?? "Unkown"} \n");
+            File.AppendAllText("logerWorkerApp.txt", $"{DateTime.Now} |INFO| - Версия приложения: {Assembly.GetEntryAssembly()?.GetName().Version?.ToString() ?? "Unknown"} \n");
             Stopwatch sw = Stopwatch.StartNew();
             sw.Start();
             InitializeComponent();

@@ -331,7 +331,7 @@ namespace WorkerApp
             bool result = await AppState.Supabase.UpdateUserAdmin(ulogin, uname, upassword, urole, uposts);
             if (result)
             {
-                MessageBox.Show($"Данные успешно пользователя {ulogin} обновлены");
+                MessageBox.Show($"Данные пользователя {ulogin} успешно обновлены");
                 File.AppendAllText("logerWorkerApp.txt", $"{DateTime.Now} |INFO| - Администратор {AppState.CurrentUser.name} обновил данные пользователя {ulogin}\n");
                 ClearBox();
                 LoadUserWorkerData();
